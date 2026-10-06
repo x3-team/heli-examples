@@ -1,0 +1,9 @@
+.env
+.venv/
+venv/
+__pycache__/
+node_modules/
+package-lock.json
+*.mp3
+*.wav
+*.m4a

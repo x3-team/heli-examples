@@ -1,0 +1,77 @@
+{
+  "name": "Heli: chat completion (OpenAI-compatible, оплата в рублях)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7f0a1c2e-0001-4c5d-9a10-000000000001",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "prompt",
+              "value": "Напиши короткое приветствие для Telegram-бота.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7f0a1c2e-0002-4c5d-9a10-000000000002",
+      "name": "Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://getheli.ru/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'openai/gpt-4.1-mini', messages: [{ role: 'user', content: $json.prompt }] }) }}",
+        "options": {}
+      },
+      "id": "7f0a1c2e-0003-4c5d-9a10-000000000003",
+      "name": "Heli Chat Completion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a2",
+              "name": "answer",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7f0a1c2e-0004-4c5d-9a10-000000000004",
+      "name": "Answer",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [660, 0]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Prompt", "type": "main", "index": 0 }]] },
+    "Prompt": { "main": [[{ "node": "Heli Chat Completion", "type": "main", "index": 0 }]] },
+    "Heli Chat Completion": { "main": [[{ "node": "Answer", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

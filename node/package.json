@@ -1,0 +1,14 @@
+{
+  "name": "heli-examples-node",
+  "private": true,
+  "type": "module",
+  "description": "Heli (getheli.ru) — OpenAI-совместимый API с оплатой в рублях: примеры на Node.js",
+  "scripts": {
+    "chat": "node chat.mjs",
+    "stream": "node stream.mjs",
+    "embeddings": "node embeddings.mjs"
+  },
+  "dependencies": {
+    "openai": ">=4.0.0"
+  }
+}
