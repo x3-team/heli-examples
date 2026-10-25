@@ -61,8 +61,9 @@ curl https://getheli.ru/v1/chat/completions \
 | [`langchain/`](langchain) | `ChatOpenAI` и `OpenAIEmbeddings` с base URL Heli |
 | [`n8n/`](n8n) | нода OpenAI с Base URL Heli и готовый workflow на HTTP Request |
 | [`cursor/`](cursor) | настройка Cursor через Override OpenAI Base URL |
+| [`google-sheets/`](google-sheets) | пользовательская функция `=ASK()` в Google Таблицах (Apps Script) |
 
-Ключ во всех примерах берётся из переменной окружения `HELI_API_KEY` (см. [`.env.example`](.env.example)).
+Ключ во всех примерах берётся из переменной окружения `HELI_API_KEY` (см. [`.env.example`](.env.example)). В Google Таблицах — из свойств скрипта (см. [`google-sheets/`](google-sheets)).
 
 ## Поддерживаемые endpoints
 
